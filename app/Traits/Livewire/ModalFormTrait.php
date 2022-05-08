@@ -11,11 +11,4 @@ trait ModalFormTrait
         $this->emitTo('pages.area-position', 'refresh-component');
     }
 
-    public function errorAlert(){
-        if (count($this->getErrorBag()->all())) {
-            foreach ($this->getErrorBag()->all() as $error) {
-                $this->alertify('error', $error);
-            }
-        }
-    }
 }

@@ -32,15 +32,326 @@
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <style>
+
+        .widget-numbers {
+            font-size: 1.3rem !important;
+            font-weight:normal !important;
+        }
+        .table-code-lab {
+            color: #566787;
+            background: #f5f5f5;
+            font-family: 'Varela Round', sans-serif;
+            font-size: 13px;
+        }
+
+        .table-code-lab .table-responsive {
+            margin: 30px 0;
+        }
+
+        .table-code-lab .table-wrapper {
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 3px;
+            /*min-width: 1000px;*/
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+
+        .table-code-lab .table-title {
+            padding-bottom: 15px;
+            background: #2e3192;
+            color: #fff;
+            padding: 16px 30px;
+            min-width: 100%;
+            margin: -20px -25px 10px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .table-code-lab .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        .table-code-lab .table-title .btn-group {
+            float: right;
+        }
+
+        .table-code-lab .table-title .btn {
+            color: #fff;
+            float: right;
+            font-size: 13px;
+            border: none;
+            min-width: 50px;
+            border-radius: 2px;
+            border: none;
+            outline: none !important;
+            margin-left: 10px;
+        }
+
+        .table-code-lab .table-title .btn i {
+            float: left;
+            font-size: 21px;
+            margin-right: 5px;
+        }
+
+        .table-code-lab .table-title .btn span {
+            float: left;
+            margin-top: 2px;
+        }
+
+        .table-code-lab table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+
+        .table-code-lab table.table tr th:first-child {
+            width: 60px;
+        }
+
+        /*.table-code-lab table.table tr th:last-child {*/
+        /*    width: 100px;*/
+        /*}*/
+
+        .table-code-lab table.table-striped tbody tr:nth-of-type(odd) {
+            background-color: #fcfcfc;
+        }
+
+        .table-code-lab table.table-striped.table-hover tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        .table-code-lab table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .table-code-lab table.table td:last-child i {
+            opacity: 0.9;
+            font-size: 22px;
+            margin: 0 5px;
+        }
+
+        .table-code-lab table.table td a {
+            font-weight: bold;
+            color: #566787;
+            display: inline-block;
+            text-decoration: none;
+            outline: none !important;
+        }
+
+        .table-code-lab table.table td a:hover {
+            color: #2196F3;
+        }
+
+        .table-code-lab table.table td a.edit {
+            color: #FFC107;
+        }
+
+        .table-code-lab table.table td a.delete {
+            color: #F44336;
+        }
+
+        .table-code-lab table.table td i {
+            font-size: 19px;
+        }
+
+        .table-code-lab table.table .avatar {
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .table-code-lab .pagination {
+            float: right;
+            margin: 0 0 5px;
+        }
+
+        .table-code-lab .pagination li a {
+            border: none;
+            font-size: 13px;
+            min-width: 30px;
+            min-height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 2px !important;
+            text-align: center;
+            padding: 0 6px;
+        }
+
+        .table-code-lab .pagination li a:hover {
+            color: #666;
+        }
+
+        .table-code-lab .pagination li.active a, .pagination li.active a.page-link {
+            background: #03A9F4;
+        }
+
+        .table-code-lab .pagination li.active a:hover {
+            background: #0397d6;
+        }
+
+        .table-code-lab .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .table-code-lab .pagination li i {
+            font-size: 16px;
+            padding-top: 6px
+        }
+
+        .table-code-lab .hint-text {
+            float: left;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        /* Custom checkbox */
+        .custom-checkbox {
+            position: relative;
+        }
+
+        .table-code-lab .custom-checkbox input[type="checkbox"] {
+            opacity: 0;
+            position: absolute;
+            margin: 5px 0 0 3px;
+            z-index: 9;
+        }
+
+        .table-code-lab .custom-checkbox label:before {
+            width: 18px;
+            height: 18px;
+        }
+
+        .table-code-lab .custom-checkbox label:before {
+            content: '';
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: text-top;
+            background: white;
+            border: 1px solid #bbb;
+            border-radius: 2px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .table-code-lab .custom-checkbox input[type="checkbox"]:checked + label:after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 3px;
+            width: 6px;
+            height: 11px;
+            border: solid #000;
+            border-width: 0 3px 3px 0;
+            transform: inherit;
+            z-index: 3;
+            transform: rotateZ(45deg);
+        }
+
+        .table-code-lab .custom-checkbox input[type="checkbox"]:checked + label:before {
+            border-color: #03A9F4;
+            background: #03A9F4;
+        }
+
+        .table-code-lab .custom-checkbox input[type="checkbox"]:checked + label:after {
+            border-color: #fff;
+        }
+
+        .table-code-lab .custom-checkbox input[type="checkbox"]:disabled + label:before {
+            color: #b8b8b8;
+            cursor: auto;
+            box-shadow: none;
+            background: #ddd;
+        }
+
+
+        /* Modal styles */
+        .modal-code-lab .modal .modal-dialog {
+            max-width: 400px;
+        }
+
+        .modal-code-lab .modal .modal-header, .modal .modal-body, .modal .modal-footer {
+            padding: 20px 30px;
+        }
+
+        .modal-code-lab .modal .modal-content {
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .modal-code-lab .modal .modal-footer {
+            background: #ecf0f1;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .modal-code-lab .modal .modal-title {
+            display: inline-block;
+        }
+
+        .modal-code-lab .modal .form-control {
+            border-radius: 2px;
+            box-shadow: none;
+            border-color: #dddddd;
+        }
+
+        .modal-code-lab .modal textarea.form-control {
+            resize: vertical;
+        }
+
+        .modal-code-lab .modal .btn {
+            border-radius: 2px;
+            min-width: 100px;
+        }
+
+        .modal-code-lab .modal form label {
+            font-weight: normal;
+        }
+
+        .modal-code-lab .show {
+            display: block;
+            animation: slide_in_show 0.5s
+        }
+
+        .modal-code-lab .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .modal-code-lab .form-group label {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes slide_in_show {
+            0% {
+                opacity: 0;
+                transform: translate(0, -50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translate(0, 0px);
+            }
+        }
+    </style>
         @livewireStyles
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
     <div class="app-header header-shadow bg-dark header-text-light">
+
         <div class="app-header__logo">
-            <div class="logo-src"></div>
+            <div class="logo-src" style="display: flex;height: 50px;width:150px;
+            background-position-x: 10px;
+    background-size: 125px;
+    background-repeat: no-repeat;">
+
+{{--                <img style="width: 50px;" src ="{{asset('icons/svg/dishub.svg')}}">--}}
+{{--                <p style="color: white">DISHUB <br> By Rapik</p>--}}
+            </div>
             <div class="header__pane ms-auto">
                 <div>
                     <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
@@ -61,6 +372,7 @@
                 </button>
             </div>
         </div>
+
         <div class="app-header__menu">
                 <span>
                     <button type="button"
@@ -73,33 +385,33 @@
         </div>
         <div class="app-header__content">
             <div class="app-header-left">
-                <div class="search-wrapper">
-                    <div class="input-holder">
-                        <input type="text" class="search-input" placeholder="Type to search">
-                        <button class="search-icon"><span></span></button>
-                    </div>
-                    <button class="btn-close"></button>
-                </div>
-                <ul class="header-menu nav">
-                    <li class="nav-item">
-                        <a href="javascript:void(0);" class="nav-link">
-                            <i class="nav-link-icon fa fa-database"> </i>
-                            Statistics
-                        </a>
-                    </li>
-                    <li class="btn-group nav-item">
-                        <a href="javascript:void(0);" class="nav-link">
-                            <i class="nav-link-icon fa fa-edit"></i>
-                            Projects
-                        </a>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a href="javascript:void(0);" class="nav-link">
-                            <i class="nav-link-icon fa fa-cog"></i>
-                            Settings
-                        </a>
-                    </li>
-                </ul>
+{{--                <div class="search-wrapper">--}}
+{{--                    <div class="input-holder">--}}
+{{--                        <input type="text" class="search-input" placeholder="Type to search">--}}
+{{--                        <button class="search-icon"><span></span></button>--}}
+{{--                    </div>--}}
+{{--                    <button class="btn-close"></button>--}}
+{{--                </div>--}}
+{{--                <ul class="header-menu nav">--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="javascript:void(0);" class="nav-link">--}}
+{{--                            <i class="nav-link-icon fa fa-database"> </i>--}}
+{{--                            Statistics--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="btn-group nav-item">--}}
+{{--                        <a href="javascript:void(0);" class="nav-link">--}}
+{{--                            <i class="nav-link-icon fa fa-edit"></i>--}}
+{{--                            Projects--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="dropdown nav-item">--}}
+{{--                        <a href="javascript:void(0);" class="nav-link">--}}
+{{--                            <i class="nav-link-icon fa fa-cog"></i>--}}
+{{--                            Settings--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
             </div>
             <div class="app-header-right">
                 <div class="header-btn-lg pe-0">
@@ -109,33 +421,37 @@
                                 <div class="btn-group">
                                     <a data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                        class="p-0 btn">
-                                        <img width="42" class="rounded-circle" src="images/1.jpg" alt="">
+                                        <img width="42" class="rounded-circle" src="https://ui-avatars.com/api/?name={{urlencode(Auth::user()->name)}}" alt="">
                                         <i class="fa fa-angle-down ms-2 opacity-8"></i>
                                     </a>
                                     <div tabindex="-1" role="menu" aria-hidden="true"
                                          class="dropdown-menu dropdown-menu-right">
-                                        <button type="button" tabindex="0" class="dropdown-item">User Account</button>
-                                        <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                        <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                        <button type="button" tabindex="0" class="dropdown-item">Actions</button>
-                                        <div tabindex="-1" class="dropdown-divider"></div>
-                                        <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button class="dropdown-item">Logout</button>
+                                        </form>
+{{--                                        <button type="button" tabindex="0" class="dropdown-item">User Account</button>--}}
+{{--                                        <button type="button" tabindex="0" class="dropdown-item">Settings</button>--}}
+{{--                                        <h6 tabindex="-1" class="dropdown-header">Header</h6>--}}
+{{--                                        <button type="button" tabindex="0" class="dropdown-item">Actions</button>--}}
+{{--                                        <div tabindex="-1" class="dropdown-divider"></div>--}}
+{{--                                        <button type="button" tabindex="0" class="dropdown-item">Dividers</button>--}}
                                     </div>
                                 </div>
                             </div>
                             <div class="widget-content-left  ms-3 header-user-info">
                                 <div class="widget-heading">
-                                    Alina Mclourd
+                                    {{Auth::user()->name}}
                                 </div>
                                 <div class="widget-subheading">
-                                    VP People Manager
+                                    {{Auth::user()->email}}
                                 </div>
                             </div>
-                            <div class="widget-content-right header-user-info ms-3">
-                                <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
-                                    <i class="fa text-white fa-calendar pe-1 ps-1"></i>
-                                </button>
-                            </div>
+{{--                            <div class="widget-content-right header-user-info ms-3">--}}
+{{--                                <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">--}}
+{{--                                    <i class="fa text-white fa-calendar pe-1 ps-1"></i>--}}
+{{--                                </button>--}}
+{{--                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -146,7 +462,8 @@
     <div class="app-main">
         <div class="app-sidebar sidebar-shadow bg-slick-carbon sidebar-text-light">
             <div class="app-header__logo">
-                <div class="logo-src"></div>
+                <div class="logo-src">
+                </div>
                 <div class="header__pane ms-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
@@ -179,34 +496,83 @@
             </div>
             <div class="scrollbar-sidebar">
                 <div class="app-sidebar__inner">
+                    @auth('field_worker')
+                        <ul class="vertical-nav-menu">
+
+                            <li class="app-sidebar__heading">Dashboard</li>
+                            {{--                        <li class="mm-active">--}}
+                            <li class="">
+                                <a href="/">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Home
+                                </a>
+                            </li>
+                        </ul>
+                    @endauth
+                    @auth('staff')
                     <ul class="vertical-nav-menu">
 
                         <li class="app-sidebar__heading">Dashboard</li>
-                        <li>
-                            <a href="#">
-                                <i class="metismenu-icon pe-7s-diamond"></i>
-                                Elements
-                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="elements-buttons-standard.html">
-                                        <i class="metismenu-icon"></i>
-                                        Buttons
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="mm-active">
-                            <a href="tables-regular.html">
+{{--                        <li class="mm-active">--}}
+                        <li class="">
+                            <a href="/home">
                                 <i class="metismenu-icon pe-7s-display2"></i>
-                                Tables
+                                Home
                             </a>
                         </li>
+                        <li class="">
+                            <a href="/home/transaksi">
+                                <i class="metismenu-icon pe-7s-display2"></i>
+                                Transaksi
+                            </a>
+                        </li>
+                        <li class="app-sidebar__heading">Laporan</li>
+                        <li class="">
+                            <a href="/report/detail">
+                                <i class="metismenu-icon pe-7s-display2"></i>
+                                Detail Transaksi
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="/report/dayly">
+                                <i class="metismenu-icon pe-7s-display2"></i>
+                                Transaksi Harian
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="/report/monthly">
+                                <i class="metismenu-icon pe-7s-display2"></i>
+                                Transaksi Bulanan
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="/report/yearly">
+                                <i class="metismenu-icon pe-7s-display2"></i>
+                                Transaksi Tahunan
+                            </a>
+                        </li>
+{{--                        <li class="app-sidebar__heading">Under development</li>--}}
+{{--                        <li>--}}
+{{--                            <a>--}}
+{{--                                <i class="metismenu-icon pe-7s-diamond"></i>--}}
+{{--                                Laporan--}}
+{{--                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>--}}
+{{--                            </a>--}}
+{{--                            <ul>--}}
+{{--                                <li>--}}
+{{--                                    <a href="/home/report">--}}
+{{--                                        <i class="metismenu-icon"></i>--}}
+{{--                                        Laporan Exel--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
                     </ul>
+                    @endauth
                 </div>
             </div>
         </div>
+
         <div class="app-main__outer">
             <div class="app-main__inner">
                 @if(isset($slot))
@@ -222,12 +588,6 @@
                     @inertia
                 @endif
 
-                <div class="app-page-title">
-{{--                    aaa--}}
-                </div>
-                <div class="row">
-
-                </div>
             </div>
         </div>
     </div>
@@ -250,7 +610,9 @@
     })
 
 </script>
+@stack('bottom-scripts')
 @livewireScripts
+
 </body>
 </html>
 

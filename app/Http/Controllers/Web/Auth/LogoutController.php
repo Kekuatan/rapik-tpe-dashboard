@@ -17,6 +17,8 @@ class LogoutController extends Controller
      */
     public function __invoke(Request $request)
     {
+//        dd('aa');
+        Auth::guard('field_worker')->logout();
         Auth::guard('staff')->logout();
         Session::flush();
 

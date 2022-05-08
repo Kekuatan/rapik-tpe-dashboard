@@ -22,6 +22,10 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
+        if (Auth::guard('field_worker')->attempt($request->only(['email', 'password']))) {
+            return redirect()->route('field-worker');
+        }
+
         if (Auth::guard('staff')->attempt($request->only(['email', 'password']))) {
             return redirect()->route('home');
         }

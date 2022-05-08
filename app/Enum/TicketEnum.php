@@ -26,7 +26,7 @@ class TicketEnum
         'all' => 'Semua bank',
         '0' => 'e-Money',
         '3' => 'TapCash',
-        'q' => 'QR code',
+        'q' => 'QR-code',
     ];
 
     public static function getVehicleName($id) {
@@ -44,6 +44,15 @@ class TicketEnum
             'mobil' => 'car',
             'truk' => 'truck',
             'motor' => 'motorcycle',
+        ];
+        return $names[$id] ?? 'undefined';
+    }
+
+    public static function getIconPayment($id) {
+        $names = [
+            'e-Money' => 'emoney',
+            'TapCash' => 'tapcash',
+            'QR-code' => 'qrcode',
         ];
         return $names[$id] ?? 'undefined';
     }

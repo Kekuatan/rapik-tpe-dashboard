@@ -50,7 +50,13 @@ return [
         'staff' => [
             'driver' => 'session',
             'provider' => 'users'
+        ],
+
+        'field_worker' => [
+            'driver' => 'session',
+            'provider' => 'field_workers'
         ]
+
     ],
 
     /*
@@ -78,6 +84,10 @@ return [
         'staffs' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'field_workers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\FieldWorker::class,
         ],
 
         // 'users' => [

@@ -13,7 +13,9 @@ use Illuminate\Support\Carbon;
 
 class TicketController extends Controller
 {
-    public function index(){}
+    public function index(){
+
+    }
     public function store(Request $request, TicketService $ticketService, MemberService $memberService)
     {
 

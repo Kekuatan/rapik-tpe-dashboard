@@ -18,111 +18,76 @@ class Ticket extends Component
     use WithPagination;
     use TicketQueryTrait;
 
-    public $tableData = null;
-    public $startDate = null;
-    public $endDate = null;
-    public $location = null;
+
     public $input = [];
     public $sumTotalRecord = 0;
+    protected $listeners = ['changeQuery'];
+
+
 
     public function mount()
     {
-        $this->startDate = '2021-09-07 17:04:58';
+        $this->startDate = '2021-09-07';
         $this->vehicle = 'all';
         $this->bank = 'all';
         $this->location = 'all';
-        $this->endDate = Carbon::now()->format('Y-m-d h:m:s');
+        $this->endDate = Carbon::now()->format('Y-m-d');
         $this->input['startDate'] = $this->startDate;
-        $this->input['endDate'] = Carbon::now()->format('Y-m-d h:m:s');
+        $this->input['endDate'] = Carbon::now()->format('Y-m-d');
+
     }
 
-    private function setWhere()
-    {
-        $location = $this->setLocation();
-        $vehicle = $this->setVehicle();
-        $bank = $this->setBank();
-
-        $where = array_merge($location, $vehicle, $bank);
-        return $where;
-    }
-
-    public function getData($perPage = 10)
-    {
+    public function dataChart(){
         $where = $this->setWhere();
-        $tickets = \App\Models\Ticket::whereBetween('tanggal', [$this->startDate, $this->endDate])
-            ->when(!blank($where), function ($query) use ($where) {
-                $query->where($where);
-            })
-            ->orderBy('tanggal', 'DESC')->simplePaginate($perPage);
-        return $tickets;
-    }
 
-    private function setLocation()
-    {
-        $location = [];
-        if ($this->location != 'all') {
-            $location[] = ['terminal_id', '=', $this->location];
+        $data = $this->queryReportTicketPerDate(
+            [
+                Carbon::now()->firstOfMonth()->format('Y-m-d'),
+                Carbon::now()->lastOfMonth()->format('Y-m-d')
+            ], $where);
+        $formatData = [];
+        $days = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14'
+            ,'15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
+        $endDate = Carbon::now()->lastOfMonth()->format('d');
+        $formatMonth = Carbon::now()->lastOfMonth()->format('m-Y');
+        $stoper = false;
+        $labels = [];
+
+        foreach ($days as $day){
+            if(!$stoper){
+                $currentData = collect($data)->where('date', '==', $day);
+                $labels[] = $day;
+                $formatData[] =  !blank($currentData )? $currentData->values()->first()->total_amount: 0;
+                if ($day == $endDate ){
+                    $stoper = true;
+                }
+            }
         }
-        return $location;
+
+        return ['labels' => $labels, 'data' => $formatData, 'sum' => collect($data)->sum('total_amount')];
     }
-
-    private function setVehicle()
-    {
-        $vehicle = [];
-        if ($this->vehicle != 'all') {
-            $vehicle[] = ['jenis_kend', '=', $this->vehicle];
-        }
-        return $vehicle;
-    }
-
-    private function setBank()
-    {
-        $bank = [];
-        if ($this->bank != 'all') {
-            $bank[] = ['bank', '=', $this->bank];
-        }
-        return $bank;
-    }
-
-    public function getReportVehicle()
-    {
-        $where = $this->setWhere();
-        return $this->querySumAndGroupBy(['jenis_kend'], [$this->startDate, $this->endDate], $where);
-    }
-
-    public function getReportBank()
-    {
-        $where = $this->setWhere();
-        return $this->querySumAndGroupBy(['bank'], [$this->startDate, $this->endDate], $where);
-    }
-
-
 
     public function render()
     {
         $tableData = $this->getData();
         $where = $this->setWhere();
-        $reportVehicle = $this->getReportVehicle();
+        $reportVehicle = $this->querySumAndGroupBy(['jenis_kend'], [$this->startDate, $this->endDate], $where);
+
         $this->sumTotalRecord = collect($reportVehicle)->sum('total_record');
         return view('livewire.pages.ticket', [
-            'tickets' => $tableData,
             'reportVehicle' => $reportVehicle,
-            'reportBank' => $this->getReportBank(),
+            'reportBank' => $this->querySumAndGroupBy(['bank'], [$this->startDate, $this->endDate], $where),
             'showingPage' => $tableData->perPage() * $tableData->currentPage(),
             'totalPage' => \App\Models\Ticket::count(),
             'sumTotalRecord' => collect($reportVehicle)->sum('total_record'),
             'sumTotalAmount' => collect($reportVehicle)->sum('total_amount'),
-            'locations' => TicketEnum::LOCATIONS,
-            'vehicles' => TicketEnum::VEHICLES,
-            'banks' => TicketEnum::BANKS,
-            'reportTicketPerMonth'=>$this->queryReportTicketPerMonth([$this->startDate, $this->endDate], $where),
-            'reportTicketPerYear'=>$this->queryReportTicketPerYear([$this->startDate, $this->endDate], $where),
-            'reportTicketPerDate'=>$this->queryReportTicketPerDate([$this->startDate, $this->endDate], $where),
+            'dataChart' =>$this->dataChart()
         ]);
     }
 
-    public function changeDate()
+    public function changeQuery($input)
     {
+        $this->input = $input;
         $this->startDate = $this->input['startDate'];
         $this->endDate = $this->input['endDate'];
         $this->location = $this->input['location'] ?? 'all';
@@ -131,18 +96,26 @@ class Ticket extends Component
         $this->render();
     }
 
+    public function dehydrate()
+    {
+        $this->emitTo('components.boxes.vehicle-box', 'dataBox', $this->input);
+        $this->emitTo('components.tables.monthly-report-transaction', 'dataTable', $this->input);
+        $this->emitTo('components.tables.daily-report-transaction', 'dataTable', $this->input);
+        $this->emitTo('components.tables.yearly-report-transaction', 'dataTable', $this->input);
+        $this->emitTo('components.tables.data-transaction', 'dataTable', $this->input);
+    }
 
     public function downloadPdf()
     {
         $this->resetPage();
-        $reportVehicle = $this->getReportVehicle();
         $where = $this->setWhere();
+        $reportVehicle = $this->querySumAndGroupBy(['jenis_kend'], [$this->startDate, $this->endDate], $where);
+
 
         $this->sumTotalRecord = collect($reportVehicle)->sum('total_record');
         $html = view('converts.pdf.report', [
-
             'reportVehicle' => $reportVehicle,
-            'reportBank' => $this->getReportBank(),
+            'reportBank' => $this->querySumAndGroupBy(['bank'], [$this->startDate, $this->endDate], $where),
             'showingPage' => collect($reportVehicle)->sum('total_record'),
             'sumTotalRecord' => collect($reportVehicle)->sum('total_record'),
             'sumTotalAmount' => collect($reportVehicle)->sum('total_amount'),
