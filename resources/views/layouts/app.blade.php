@@ -34,7 +34,6 @@
     -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <style>
-
         .widget-numbers {
             font-size: 1.3rem !important;
             font-weight:normal !important;
@@ -71,6 +70,22 @@
         .table-code-lab .table-title h2 {
             margin: 5px 0 0;
             font-size: 24px;
+        }
+
+        .table-code-lab tfoot{
+            /*color: white;*/
+            background-color: white;
+            position: sticky;
+            bottom: 0px;
+            z-index:1;
+        }
+
+        .table-code-lab thead{
+            /*color: white;*/
+            background-color: white;
+            position: sticky;
+            top: 60px;
+            z-index:1;
         }
 
         .table-code-lab .table-title .btn-group {
