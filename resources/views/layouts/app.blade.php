@@ -359,10 +359,15 @@
     <div class="app-header header-shadow bg-dark header-text-light">
 
         <div class="app-header__logo">
-            <div class="logo-src" style="display: flex;height: 50px;width:150px;
+            <div class="logo-src" style="display: flex;
+            height: 30px;
+            width:150px;
+            /*height: 50px;*/
             background-position-x: 10px;
-    background-size: 125px;
-    background-repeat: no-repeat;">
+            /*background-size: 125px;*/
+            background-size: 135px;
+            background-repeat: no-repeat;"
+            >
 
 {{--                <img style="width: 50px;" src ="{{asset('icons/svg/dishub.svg')}}">--}}
 {{--                <p style="color: white">DISHUB <br> By Rapik</p>--}}
