@@ -27,7 +27,7 @@ class LoginController extends Controller
         }
 
         if (Auth::guard('staff')->attempt($request->only(['email', 'password']))) {
-            return redirect()->route('home');
+            return redirect()->route('/');
         }
 
         return redirect()
