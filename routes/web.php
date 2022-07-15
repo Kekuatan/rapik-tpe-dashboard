@@ -48,8 +48,9 @@ Route::group([
     'middleware' =>['auth:staff'], //['auth:staff', 'logging-web', 'twofa'],
     'as' => 'home'
 ], function () {
-    Route::get('/', \App\Http\Livewire\Pages\Ticket::class);
+
     Route::get('/transaksi', \App\Http\Livewire\Pages\Transaction::class);
+    Route::get('/', \App\Http\Livewire\Pages\Ticket::class);
 //    Route::get('/report', \App\Http\Livewire\Pages\Report::class);
 //    Route::get('/report/export', \App\Http\Livewire\Components\Report\Excel\ReportDefault::class);
 //    Route::get('/report/excel', [\App\Http\Controllers\Web\Exports\ExelMontlyReport::class, 'excel']);
