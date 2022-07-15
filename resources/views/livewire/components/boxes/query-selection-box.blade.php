@@ -55,10 +55,11 @@
                 </div>
                 <div class="md-6">
                     <button wire:click.prevent='changeQuery'  class="btn btn-primary btn-block"> submit</button>
-                    <a href="/home/report/export?{{http_build_query($input)}}" target="_blank" class="btn btn-primary btn-block"> test</a>
-                    <a href="https://www.WordPress.com" target="_blank">WordPress Homepage</a>
-                    <button wire:click='downloadPdf' class="btn btn-primary btn-block"> export pdf</button>
+{{--                    <a href="/home/report/export?{{http_build_query($input)}}" target="_blank" class="btn btn-primary btn-block"> test</a>--}}
+{{--                    <a href="https://www.WordPress.com" target="_blank">WordPress Homepage</a>--}}
+{{--                    <button wire:click='downloadPdf' class="btn btn-primary btn-block"> export pdf</button>--}}
                 </div>
+
 
             </div>
 

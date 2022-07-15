@@ -1,6 +1,7 @@
 <div>
     <div class="table-code-lab">
-        <div class="table-responsive">
+        <!-- class="table-responsive" -->
+        <div>
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
