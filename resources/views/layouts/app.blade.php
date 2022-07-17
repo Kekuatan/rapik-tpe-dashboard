@@ -360,12 +360,12 @@
 
         <div class="app-header__logo">
             <div class="logo-src" style="display: flex;
-            height: 30px;
+            /*height: 30px;*/
             width:150px;
-            /*height: 50px;*/
+            height: 50px;
             background-position-x: 10px;
-            /*background-size: 125px;*/
-            background-size: 135px;
+            background-size: 125px;
+            /*background-size: 135px;*/
             background-repeat: no-repeat;"
             >
 
